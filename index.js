@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: true }))
 // Set up public folder (for css and statis js)
 app.use(express.static(__dirname + '/public'))
 
+//test
+
 // Define the database connection
 const db = mysql.createConnection ({
     host: 'localhost',
