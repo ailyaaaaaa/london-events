@@ -3,6 +3,14 @@ const express = require("express")
 const router = express.Router()
 const bcrypt = require('bcrypt')
 const saltRounds = 10
+const redirectLogin = (req, res, next) => {
+    if (!req.session.userId ) {
+      res.redirect('./login') // redirect to the login page
+    } else { 
+        next (); // move to the next middleware function
+    } 
+}
+
 
 router.get('/register', function (req, res, next) {
     res.render('register.ejs')                                                               
@@ -45,7 +53,7 @@ router.post('/registered', function (req, res, next) {
                                                                            
 })
 
-router.get('/list', function(req, res, next) {
+router.get('/list', redirectLogin, function(req, res, next) {
     let sqlquery = "SELECT * FROM users" // query database to get all the users
     // execute sql query
     db.query(sqlquery, (err, result) => {
@@ -67,7 +75,7 @@ router.post('/login', function (req, res) {
     db.query(userQuery, [username], (err, result) => {
         if (err) {
             console.error(err);
-            res.send(`Welcome, ${username}`);
+            res.redirect(`./login`);
             return;
         }
 
@@ -89,8 +97,11 @@ router.post('/login', function (req, res) {
             }
 
             if (isMatch) {
+                // Save user session here, when login is successful
+                req.session.userId = req.body.username;
                 // Successful login
-                res.send(`Welcome, ${username}! Login successful.`);
+                //res.send(`Welcome, ${username}! Login successful.`);
+                res.redirect(`./profile`);
             } else {
                 // Passwords do not match
                 res.send('Invalid username or password');
@@ -98,6 +109,20 @@ router.post('/login', function (req, res) {
         });
     });
 });
+
+router.get('/profile', redirectLogin, function(req, res, next){
+    res.render('profile.ejs')
+})
+
+router.get('/logout', redirectLogin, (req,res) => {
+    req.session.destroy(err => {
+    if (err) {
+      return res.redirect('./')
+    }
+    res.send('you are now logged out. <a href='+'../'+'>Home</a>');
+    })
+})
+
 
 // Export the router object so index.js can access it
 module.exports = router
