@@ -10,20 +10,36 @@ const redirectLogin = (req, res, next) => {
         next (); // move to the next middleware function
     } 
 }
+const { check, validationResult } = require('express-validator');
 
 
 router.get('/register', function (req, res, next) {
     res.render('register.ejs')                                                               
 })    
 
-router.post('/registered', function (req, res, next) {
+router.post('/registered', [
+    // Validate fields
+    check('first').notEmpty().withMessage('First name is required'),
+    check('last').notEmpty().withMessage('Last name is required'),
+    check('email').isEmail().withMessage('A valid email is required'),
+    check('username').notEmpty().withMessage('Username is required'),
+    check('password')
+        .isLength({ min: 8 }).withMessage('Password must be at least 8 characters long')
+        .matches(/\d/).withMessage('Password must contain at least one number'),], function (req, res, next) {
+
+    const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            res.redirect('./register'); }
+        else { 
 
     //Retrieve data from form
     const plainPassword = req.body.password;
-    const username = req.body.username;
-    const firstName = req.body.first;
-    const lastName = req.body.last;
+    const username = req.sanitize(req.body.username);
+    const firstName = req.sanitize(req.body.first);
+    const lastName = req.sanitize(req.body.last);
     const email = req.body.email;
+
+
 
     //SQL query
     let sqlquery = "INSERT INTO users (firstname, lastname, email, username, hashpassword) VALUES (?,?,?,?,?)"
@@ -50,7 +66,8 @@ router.post('/registered', function (req, res, next) {
 
         }
       })      
-                                                                           
+       
+    }
 })
 
 router.get('/list', redirectLogin, function(req, res, next) {
