@@ -1,11 +1,12 @@
 <!doctype html>
 <html>
   <head>
-    <title>Welcome to <%=shopData.shopName%></title>
+    <title>Welcome to <%=data.name%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
+  <%- include('header') %>
   <body>
-    <h1><%=shopData.shopName%> Shop</h1>
+    <h1><%=data.name%></h1>
     <h2>All users:</h2>
     <ul>
       <% availableUsers.forEach(function(users) { %>

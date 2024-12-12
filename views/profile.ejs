@@ -1,12 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Profile - <%=shopData.shopName%></title>
+    <title>Profile - <%=data.name%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
+  <%- include('header') %>
   <body>
-    <h1>`Hello, ${username}!`</h1>
-    <p>sample text</p>
+    <h1>Hello, <%= username %> </h1>
+    <p>This is your profile:</p>
+    <p>Name: <%= firstName %> <%= lastName %> </p>
     <p><a href="./logout">Logout</a></p>
   </body>
 </html>

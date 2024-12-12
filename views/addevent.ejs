@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Add Event to <%=data.name%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <%- include('header') %>
+  <body>
+    <h1><%=data.name%>: Add Event</h1>
+    <form method="POST" action="/eventadded">
+        <p>Event Name: <input id="name" type="text" name="name" value="" required /></p>
+        <p>Description: <textarea id="description" name="description" rows="4" cols="50" required></textarea></p>
+        <p>Start Time: <input id="start_time" type="datetime-local" name="start_time" required /></p>
+        <p>End Time: <input id="end_time" type="datetime-local" name="end_time" /></p>
+        <p>Location: <input id="location" type="text" name="location" value="" required /></p>
+        <p>Organiser: <input id="organiser" type="text" name="organiser" value="" required /></p>
+        <input type="submit" value="Add Event" />
+    </form>
+  </body>
+</html>

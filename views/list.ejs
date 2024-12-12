@@ -1,15 +1,16 @@
 <!doctype html>
 <html>
   <head>
-    <title>Welcome to <%=shopData.shopName%></title>
+    <title>Welcome to <%=data.name%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
+  <%- include('header') %>
   <body>
-    <h1><%=shopData.shopName%> Shop</h1>
-    <h2>Here are the books that we sell:</h2>
+    <h1><%=data.name%></h1>
+    <h2>Here are events in the next week:</h2>
     <ul>
-      <% availableBooks.forEach(function(book) { %>
-        <li><%= book.name %>, £<%=book.price%> </li>
+      <% availableEvents.forEach(function(events) { %>
+        <li><%= events.name %>, <%= events.description %> </li>
       <% }) %>
     </ul>
     </body>

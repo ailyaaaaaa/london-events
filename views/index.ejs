@@ -1,19 +1,21 @@
 <!doctype html>
 <html>
   <head>
-    <title>Welcome to <%=shopData.shopName%></title>
+    <title>Welcome to <%=data.name%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
+  <!-- Add header to the page -->
+  <%- include('header') %>
   <body>
-    <h1>Welcome to <%=shopData.shopName%></h1>
-    <p><a href="about">About <%=shopData.shopName%></a></p>
-    <p><a href="books/search">Search for books</a></p>
-    <p><a href="books/addbook">Add a new book</a></p>
-    <p><a href="books/list">List books</a></p>
-    <p><a href="books/bargainbooks">Bargain books</a></p>
-    <p><a href="users/register">Register with us</a></p>
-    <p><a href="users/list">See all users</a></p>
-    <p><a href="users/login">Login</a></p>
-    <p><a href="users/profile">Profile</a></p>
+    <h1>
+      Welcome to <span class="shop-name"><%= data.name %></span>
+    </h1>
+    <p><a href="about">About <%=data.name%></a></p>
+    <p><a href="events/search">Search for events</a></p>
+    <p><a href="events/list">See all events</a></p>
+    <p><a href="events/addevent">Add a new event</a></p>
+    <p><a href="weather/">Check the weather</a></p>
+    <p><a href="api/events">Our API</a></p>
+    <p><a href="users/login">Login or register</a></p>
   </body>
 </html>

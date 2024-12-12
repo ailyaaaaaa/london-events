@@ -1,16 +1,12 @@
-
 // Create a new router
 const express = require("express")
 const router = express.Router()
 const request = require('request')
 const { check, validationResult } = require('express-validator');
 
-
-router.get('/books', function (req, res, next) {
-
-    
-    // Query database to get all the books
-    let sqlquery = "SELECT * FROM books"
+router.get('/events', function (req, res, next) {
+    // Query database to get all events
+    let sqlquery = "SELECT * FROM events"
 
     // Execute the sql query
     db.query(sqlquery, (err, result) => {

@@ -1,17 +1,9 @@
-// Import express and ejs
+// Import express, ejs, mysql, session, validator, and sanitizer
 var express = require ('express')
 var ejs = require('ejs')
-
-//Import mysql module
 var mysql = require('mysql2')
-
-//Import express session
 var session = require ('express-session')
-
-//Import validator
 var validator = require ('express-validator');
-
-//Import sanitiser
 const expressSanitizer = require('express-sanitizer');
 
 // Create the express application object
@@ -30,8 +22,6 @@ app.use(express.urlencoded({ extended: true }))
 // Set up public folder (for css and statis js)
 app.use(express.static(__dirname + '/public'))
 
-//test
-
 // Create a session
 app.use(session({
     secret: 'somerandomstuff',
@@ -45,10 +35,11 @@ app.use(session({
 // Define the database connection
 const db = mysql.createConnection ({
     host: 'localhost',
-    user: 'bettys_books_app',
+    user: 'london_events_app',
     password: 'qwertyuiop',
-    database: 'bettys_books'
+    database: 'london_events'
 })
+
 // Connect to the database
 db.connect((err) => {
     if (err) {
@@ -59,7 +50,7 @@ db.connect((err) => {
 global.db = db
 
 // Define our application-specific data
-app.locals.shopData = {shopName: "Bettys Books"}
+app.locals.data = {name: "London Events"}
 
 // Load the route handlers
 const mainRoutes = require("./routes/main")
@@ -69,9 +60,9 @@ app.use('/', mainRoutes)
 const usersRoutes = require('./routes/users')
 app.use('/users', usersRoutes)
 
-// Load the route handlers for /books
-const booksRoutes = require('./routes/books')
-app.use('/books', booksRoutes)
+// Load the route handlers for /events
+const eventsRoutes = require('./routes/events')
+app.use('/events', eventsRoutes)
 
 // Load the route handlers for /weather
 const weatherRoutes = require('./routes/weather')
