@@ -5,6 +5,6 @@ npm install express
 npm install ejs
 npm install mysql
 npm install bcrypt
-npm express-session 
-npm express-validator 
-npm express-sanitizer
+npm install express-session 
+npm install express-validator 
+npm install express-sanitizer
